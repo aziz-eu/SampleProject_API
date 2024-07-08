@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using SampleProject_API.Data;
 using SampleProject_API.Repository;
 using SampleProject_API.Repository.IRepository;
+using SampleProject_API.Services.EmailService;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 var key = builder.Configuration.GetValue<string>("JWT:Secret");
 builder.Services.AddAuthentication(x => {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
